@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "f94368cd-f4d3-4073-bec9-fc99836ac6b2",
+		"name": "Billing Engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37086982"
+	},
+	"item": [
+		{
+			"name": "[CREATE] Customer",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Joshua Ryandafres Pangaribuan\",\r\n    \"email\" : \"joshua@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_urls}}/customer",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] All Customer Information",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_urls}}/customers",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[CREATE] Loan",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_id\" : 1936754080316395520\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_urls}}/loan",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] Installment for Specific Loan",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_urls}}/loan/:loan_id/installments",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"loan",
+						":loan_id",
+						"installments"
+					],
+					"variable": [
+						{
+							"key": "loan_id",
+							"value": "2001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] Outstanding for specific customer & loan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_urls}}/customer/:customer_id/loan/:loan_id/outstanding",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"customer",
+						":customer_id",
+						"loan",
+						":loan_id",
+						"outstanding"
+					],
+					"variable": [
+						{
+							"key": "customer_id",
+							"value": "1001"
+						},
+						{
+							"key": "loan_id",
+							"value": "2001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[CHECK] Delinquent Loan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_urls}}/loan/:loan_id/delinquent",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"loan",
+						":loan_id",
+						"delinquent"
+					],
+					"variable": [
+						{
+							"key": "loan_id",
+							"value": "2001"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
