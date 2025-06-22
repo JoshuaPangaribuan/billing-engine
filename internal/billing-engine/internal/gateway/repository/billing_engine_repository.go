@@ -508,7 +508,7 @@ func (b *BillingEngineRepository) MakePayment(ctx context.Context, loanID uint64
 
 	// Check if all installments are paid to update loan status
 	allPaidQuery := b.queryBuilder.
-		Select("COUNT(*)").
+		Select(goqu.COUNT("*")).
 		From(b.installmentTableName).
 		Where(goqu.Ex{"loan_id": loanID}).
 		Where(goqu.Ex{"status": goqu.Op{"neq": "PAID"}})
@@ -631,14 +631,14 @@ func (b *BillingEngineRepository) GetInstallmentsForDelinquency(ctx context.Cont
 	return installments, nil
 }
 
-func (b *BillingEngineRepository) GetPendingInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error) {
+func (b *BillingEngineRepository) GetAllInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error) {
 	var installment models.Installment
 
 	query := b.queryBuilder.
 		Select(installment.Columns()...).
 		From(b.installmentTableName).
 		Where(goqu.Ex{"loan_id": loanID}).
-		Where(goqu.Ex{"status": "PENDING"})
+		Order(goqu.C("week_number").Asc())
 
 	sqlQuery, _, err := query.ToSQL()
 	if err != nil {

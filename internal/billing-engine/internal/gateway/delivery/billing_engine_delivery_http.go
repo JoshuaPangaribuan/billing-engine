@@ -14,7 +14,7 @@ const (
 	getAllCustomerPath        = "/customers"
 	createLoanPath            = "/loan"
 	getInstallmentsByLoanPath = "/loan/:loan_id/installments"
-	makePaymentPath           = "/loan/:loan_id/payment"
+	makePaymentPath           = "/loan/payment"
 	isDelinquentPath          = "/loan/:loan_id/delinquent"
 	getOutstandingPath        = "/customer/:customer_id/loan/:loan_id/outstanding"
 )

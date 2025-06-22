@@ -15,7 +15,7 @@ var _ usecases.GetOutstandingUsecase = (*GetOutstandingInteractor)(nil)
 type (
 	GetOutstandingRepository interface {
 		GetOutstandingString(ctx context.Context, loanID uint64) (string, error)
-		GetPendingInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error)
+		GetAllInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error)
 		IsCustomerExist(ctx context.Context, customerID uint64) (bool, error)
 		IsLoanBelongsToCustomer(ctx context.Context, customerID uint64, loanID uint64) (bool, error)
 	}
@@ -72,7 +72,7 @@ func (g *GetOutstandingInteractor) Execute(ctx context.Context, customerID uint6
 	}
 
 	// Get installments for detailed breakdown
-	installments, err := g.repository.GetPendingInstallments(ctx, loanID)
+	installments, err := g.repository.GetAllInstallments(ctx, loanID)
 	if err != nil {
 		g.logger.Errorw("failed to get installments", "error", err, "loan_id", loanID)
 		return usecases.GetOutstandingOutput{}, pkgerror.BusinessErrorFrom(err)

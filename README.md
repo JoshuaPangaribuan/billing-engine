@@ -55,7 +55,8 @@ internal/
 
 ### Payment Processing
 - **Weekly Payments**: Process payments for specific week numbers
-- **Payment Validation**: Ensure payments match exact installment amounts
+- **Payment Validation**: Ensure payments match exact installment amounts and validate customer ownership
+- **Customer-Loan Validation**: Verify customer exists and loan belongs to the customer before processing payments
 - **Payment Status Tracking**: Monitor paid, missed, and pending installments
 
 ### Financial Tracking
@@ -81,6 +82,23 @@ internal/
 ### Billing Operations
 - `GET /customer/:customer_id/loan/:loan_id/outstanding` - Get outstanding balance for a specific customer and loan
 - `GET /loan/:loan_id/delinquent` - Check if a loan is delinquent
+
+### Payment Operations
+- `POST /loan/payment` - Process a payment for a specific loan installment
+  - **Request Body**: 
+    ```json
+    {
+      "customer_id": 1002,
+      "loan_id": 2002,
+      "week_number": 4,
+      "amount": "110000.00"
+    }
+    ```
+  - **Validation**: 
+    - Customer must exist
+    - Loan must belong to the specified customer
+    - Payment amount must match the installment amount due
+    - Week number must be valid for the loan
 
 ## Disclaimer
 

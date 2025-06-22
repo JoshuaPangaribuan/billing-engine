@@ -36,7 +36,7 @@ func TestGetOutstandingInteractor_Execute(t *testing.T) {
 					{ID: 2, WeekNumber: 2, DueDate: "2024-06-08", AmountDue: "100000", Status: entity.INSTALLMENT_MISSED},
 					{ID: 3, WeekNumber: 3, DueDate: "2024-06-15", AmountDue: "100000", Status: entity.INSTALLMENT_PENDING},
 				}
-				mockRepo.On("GetPendingInstallments", mock.Anything, uint64(10)).Return(installments, nil)
+				mockRepo.On("GetAllInstallments", mock.Anything, uint64(10)).Return(installments, nil)
 			},
 			expectedOutput: func() usecases.GetOutstandingOutput {
 				return usecases.GetOutstandingOutput{
@@ -74,7 +74,7 @@ func TestGetOutstandingInteractor_Execute(t *testing.T) {
 				mockRepo.On("IsCustomerExist", mock.Anything, uint64(2)).Return(true, nil)
 				mockRepo.On("IsLoanBelongsToCustomer", mock.Anything, uint64(2), uint64(20)).Return(true, nil)
 				mockRepo.On("GetOutstandingString", mock.Anything, uint64(20)).Return("0", nil)
-				mockRepo.On("GetPendingInstallments", mock.Anything, uint64(20)).Return([]entity.Installment{}, nil)
+				mockRepo.On("GetAllInstallments", mock.Anything, uint64(20)).Return([]entity.Installment{}, nil)
 			},
 			expectedOutput: func() usecases.GetOutstandingOutput {
 				return usecases.GetOutstandingOutput{
@@ -152,7 +152,7 @@ func TestGetOutstandingInteractor_Execute(t *testing.T) {
 			expectedError:  &pkgerror.Error{},
 		},
 		{
-			name:       "error - repository error on GetPendingInstallments",
+			name:       "error - repository error on GetAllInstallments",
 			customerID: 8,
 			loanID:     80,
 			setupMocks: func(mockRepo *billingenginemocks.MockGetOutstandingRepository) {
@@ -160,7 +160,7 @@ func TestGetOutstandingInteractor_Execute(t *testing.T) {
 				mockRepo.On("IsLoanBelongsToCustomer", mock.Anything, uint64(8), uint64(80)).Return(true, nil)
 				mockRepo.On("GetOutstandingString", mock.Anything, uint64(80)).Return("1000000", nil)
 				repoErr := errors.New("db error")
-				mockRepo.On("GetPendingInstallments", mock.Anything, uint64(80)).Return(nil, repoErr)
+				mockRepo.On("GetAllInstallments", mock.Anything, uint64(80)).Return(nil, repoErr)
 			},
 			expectedOutput: usecases.GetOutstandingOutput{},
 			expectedError:  &pkgerror.Error{},

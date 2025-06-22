@@ -78,6 +78,121 @@ func (_c *MockMakePaymentRepository_GetOutstandingString_Call) RunAndReturn(run 
 	return _c
 }
 
+// IsCustomerExist provides a mock function with given fields: ctx, customerID
+func (_m *MockMakePaymentRepository) IsCustomerExist(ctx context.Context, customerID uint64) (bool, error) {
+	ret := _m.Called(ctx, customerID)
+
+	if len(ret) == 0 {
+		panic("no return value specified for IsCustomerExist")
+	}
+
+	var r0 bool
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, uint64) (bool, error)); ok {
+		return rf(ctx, customerID)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, uint64) bool); ok {
+		r0 = rf(ctx, customerID)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, uint64) error); ok {
+		r1 = rf(ctx, customerID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// MockMakePaymentRepository_IsCustomerExist_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'IsCustomerExist'
+type MockMakePaymentRepository_IsCustomerExist_Call struct {
+	*mock.Call
+}
+
+// IsCustomerExist is a helper method to define mock.On call
+//   - ctx context.Context
+//   - customerID uint64
+func (_e *MockMakePaymentRepository_Expecter) IsCustomerExist(ctx interface{}, customerID interface{}) *MockMakePaymentRepository_IsCustomerExist_Call {
+	return &MockMakePaymentRepository_IsCustomerExist_Call{Call: _e.mock.On("IsCustomerExist", ctx, customerID)}
+}
+
+func (_c *MockMakePaymentRepository_IsCustomerExist_Call) Run(run func(ctx context.Context, customerID uint64)) *MockMakePaymentRepository_IsCustomerExist_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(uint64))
+	})
+	return _c
+}
+
+func (_c *MockMakePaymentRepository_IsCustomerExist_Call) Return(_a0 bool, _a1 error) *MockMakePaymentRepository_IsCustomerExist_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *MockMakePaymentRepository_IsCustomerExist_Call) RunAndReturn(run func(context.Context, uint64) (bool, error)) *MockMakePaymentRepository_IsCustomerExist_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// IsLoanBelongsToCustomer provides a mock function with given fields: ctx, customerID, loanID
+func (_m *MockMakePaymentRepository) IsLoanBelongsToCustomer(ctx context.Context, customerID uint64, loanID uint64) (bool, error) {
+	ret := _m.Called(ctx, customerID, loanID)
+
+	if len(ret) == 0 {
+		panic("no return value specified for IsLoanBelongsToCustomer")
+	}
+
+	var r0 bool
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, uint64, uint64) (bool, error)); ok {
+		return rf(ctx, customerID, loanID)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, uint64, uint64) bool); ok {
+		r0 = rf(ctx, customerID, loanID)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, uint64, uint64) error); ok {
+		r1 = rf(ctx, customerID, loanID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// MockMakePaymentRepository_IsLoanBelongsToCustomer_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'IsLoanBelongsToCustomer'
+type MockMakePaymentRepository_IsLoanBelongsToCustomer_Call struct {
+	*mock.Call
+}
+
+// IsLoanBelongsToCustomer is a helper method to define mock.On call
+//   - ctx context.Context
+//   - customerID uint64
+//   - loanID uint64
+func (_e *MockMakePaymentRepository_Expecter) IsLoanBelongsToCustomer(ctx interface{}, customerID interface{}, loanID interface{}) *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call {
+	return &MockMakePaymentRepository_IsLoanBelongsToCustomer_Call{Call: _e.mock.On("IsLoanBelongsToCustomer", ctx, customerID, loanID)}
+}
+
+func (_c *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call) Run(run func(ctx context.Context, customerID uint64, loanID uint64)) *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(uint64), args[2].(uint64))
+	})
+	return _c
+}
+
+func (_c *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call) Return(_a0 bool, _a1 error) *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call) RunAndReturn(run func(context.Context, uint64, uint64) (bool, error)) *MockMakePaymentRepository_IsLoanBelongsToCustomer_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // MakePayment provides a mock function with given fields: ctx, loanID, weekNumber, amount
 func (_m *MockMakePaymentRepository) MakePayment(ctx context.Context, loanID uint64, weekNumber int64, amount string) error {
 	ret := _m.Called(ctx, loanID, weekNumber, amount)

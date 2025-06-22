@@ -23,6 +23,65 @@ func (_m *MockGetOutstandingRepository) EXPECT() *MockGetOutstandingRepository_E
 	return &MockGetOutstandingRepository_Expecter{mock: &_m.Mock}
 }
 
+// GetAllInstallments provides a mock function with given fields: ctx, loanID
+func (_m *MockGetOutstandingRepository) GetAllInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error) {
+	ret := _m.Called(ctx, loanID)
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetAllInstallments")
+	}
+
+	var r0 []entity.Installment
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, uint64) ([]entity.Installment, error)); ok {
+		return rf(ctx, loanID)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, uint64) []entity.Installment); ok {
+		r0 = rf(ctx, loanID)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]entity.Installment)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, uint64) error); ok {
+		r1 = rf(ctx, loanID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// MockGetOutstandingRepository_GetAllInstallments_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetAllInstallments'
+type MockGetOutstandingRepository_GetAllInstallments_Call struct {
+	*mock.Call
+}
+
+// GetAllInstallments is a helper method to define mock.On call
+//   - ctx context.Context
+//   - loanID uint64
+func (_e *MockGetOutstandingRepository_Expecter) GetAllInstallments(ctx interface{}, loanID interface{}) *MockGetOutstandingRepository_GetAllInstallments_Call {
+	return &MockGetOutstandingRepository_GetAllInstallments_Call{Call: _e.mock.On("GetAllInstallments", ctx, loanID)}
+}
+
+func (_c *MockGetOutstandingRepository_GetAllInstallments_Call) Run(run func(ctx context.Context, loanID uint64)) *MockGetOutstandingRepository_GetAllInstallments_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(uint64))
+	})
+	return _c
+}
+
+func (_c *MockGetOutstandingRepository_GetAllInstallments_Call) Return(_a0 []entity.Installment, _a1 error) *MockGetOutstandingRepository_GetAllInstallments_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *MockGetOutstandingRepository_GetAllInstallments_Call) RunAndReturn(run func(context.Context, uint64) ([]entity.Installment, error)) *MockGetOutstandingRepository_GetAllInstallments_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // GetOutstandingString provides a mock function with given fields: ctx, loanID
 func (_m *MockGetOutstandingRepository) GetOutstandingString(ctx context.Context, loanID uint64) (string, error) {
 	ret := _m.Called(ctx, loanID)
@@ -76,65 +135,6 @@ func (_c *MockGetOutstandingRepository_GetOutstandingString_Call) Return(_a0 str
 }
 
 func (_c *MockGetOutstandingRepository_GetOutstandingString_Call) RunAndReturn(run func(context.Context, uint64) (string, error)) *MockGetOutstandingRepository_GetOutstandingString_Call {
-	_c.Call.Return(run)
-	return _c
-}
-
-// GetPendingInstallments provides a mock function with given fields: ctx, loanID
-func (_m *MockGetOutstandingRepository) GetPendingInstallments(ctx context.Context, loanID uint64) ([]entity.Installment, error) {
-	ret := _m.Called(ctx, loanID)
-
-	if len(ret) == 0 {
-		panic("no return value specified for GetPendingInstallments")
-	}
-
-	var r0 []entity.Installment
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, uint64) ([]entity.Installment, error)); ok {
-		return rf(ctx, loanID)
-	}
-	if rf, ok := ret.Get(0).(func(context.Context, uint64) []entity.Installment); ok {
-		r0 = rf(ctx, loanID)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]entity.Installment)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func(context.Context, uint64) error); ok {
-		r1 = rf(ctx, loanID)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// MockGetOutstandingRepository_GetPendingInstallments_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetPendingInstallments'
-type MockGetOutstandingRepository_GetPendingInstallments_Call struct {
-	*mock.Call
-}
-
-// GetPendingInstallments is a helper method to define mock.On call
-//   - ctx context.Context
-//   - loanID uint64
-func (_e *MockGetOutstandingRepository_Expecter) GetPendingInstallments(ctx interface{}, loanID interface{}) *MockGetOutstandingRepository_GetPendingInstallments_Call {
-	return &MockGetOutstandingRepository_GetPendingInstallments_Call{Call: _e.mock.On("GetPendingInstallments", ctx, loanID)}
-}
-
-func (_c *MockGetOutstandingRepository_GetPendingInstallments_Call) Run(run func(ctx context.Context, loanID uint64)) *MockGetOutstandingRepository_GetPendingInstallments_Call {
-	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(uint64))
-	})
-	return _c
-}
-
-func (_c *MockGetOutstandingRepository_GetPendingInstallments_Call) Return(_a0 []entity.Installment, _a1 error) *MockGetOutstandingRepository_GetPendingInstallments_Call {
-	_c.Call.Return(_a0, _a1)
-	return _c
-}
-
-func (_c *MockGetOutstandingRepository_GetPendingInstallments_Call) RunAndReturn(run func(context.Context, uint64) ([]entity.Installment, error)) *MockGetOutstandingRepository_GetPendingInstallments_Call {
 	_c.Call.Return(run)
 	return _c
 }

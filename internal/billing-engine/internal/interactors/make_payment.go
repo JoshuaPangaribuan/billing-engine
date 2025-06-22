@@ -15,6 +15,8 @@ type (
 	MakePaymentRepository interface {
 		MakePayment(ctx context.Context, loanID uint64, weekNumber int64, amount string) error
 		GetOutstandingString(ctx context.Context, loanID uint64) (string, error)
+		IsCustomerExist(ctx context.Context, customerID uint64) (bool, error)
+		IsLoanBelongsToCustomer(ctx context.Context, customerID uint64, loanID uint64) (bool, error)
 	}
 
 	MakePaymentInteractorDependencies struct {
@@ -52,8 +54,30 @@ func (m *MakePaymentInteractor) Execute(ctx context.Context, input usecases.Make
 		return usecases.MakePaymentOutput{}, pkgerror.NewBusinessError("invalid input: " + err.Error())
 	}
 
+	// Check if customer exists
+	isCustomerExist, err := m.repository.IsCustomerExist(ctx, input.CustomerID)
+	if err != nil {
+		m.logger.Errorw("failed to check if customer exists", "error", err, "customer_id", input.CustomerID)
+		return usecases.MakePaymentOutput{}, pkgerror.BusinessErrorFrom(err)
+	}
+
+	if !isCustomerExist {
+		return usecases.MakePaymentOutput{}, pkgerror.NewBusinessError("customer not found")
+	}
+
+	// Check if loan belongs to the customer
+	isLoanBelongsToCustomer, err := m.repository.IsLoanBelongsToCustomer(ctx, input.CustomerID, input.LoanID)
+	if err != nil {
+		m.logger.Errorw("failed to check if loan belongs to customer", "error", err, "customer_id", input.CustomerID, "loan_id", input.LoanID)
+		return usecases.MakePaymentOutput{}, pkgerror.BusinessErrorFrom(err)
+	}
+
+	if !isLoanBelongsToCustomer {
+		return usecases.MakePaymentOutput{}, pkgerror.NewBusinessError("loan not found or does not belong to customer")
+	}
+
 	// Make the payment
-	err := m.repository.MakePayment(ctx, input.LoanID, input.WeekNumber, input.Amount)
+	err = m.repository.MakePayment(ctx, input.LoanID, input.WeekNumber, input.Amount)
 	if err != nil {
 		m.logger.Errorw("failed to make payment", "error", err, "loan_id", input.LoanID, "week_number", input.WeekNumber)
 		return usecases.MakePaymentOutput{}, pkgerror.BusinessErrorFrom(err)
@@ -73,6 +97,7 @@ func (m *MakePaymentInteractor) Execute(ctx context.Context, input usecases.Make
 	}
 
 	return usecases.MakePaymentOutput{
+		CustomerID: input.CustomerID,
 		LoanID:     input.LoanID,
 		WeekNumber: input.WeekNumber,
 		Amount:     input.Amount,

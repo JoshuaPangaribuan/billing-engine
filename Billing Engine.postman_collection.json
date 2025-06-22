@@ -146,11 +146,11 @@
 					"variable": [
 						{
 							"key": "customer_id",
-							"value": "1001"
+							"value": "1002"
 						},
 						{
 							"key": "loan_id",
-							"value": "2001"
+							"value": "2002"
 						}
 					]
 				}
@@ -175,8 +175,35 @@
 					"variable": [
 						{
 							"key": "loan_id",
-							"value": "2001"
+							"value": "2002"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[CREATE] Payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_id\": 1002,\r\n    \"loan_id\": 2002,\r\n    \"week_number\" : 4,\r\n    \"amount\" : \"110000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_urls}}/loan/payment",
+					"host": [
+						"{{base_urls}}"
+					],
+					"path": [
+						"loan",
+						"payment"
 					]
 				}
 			},
