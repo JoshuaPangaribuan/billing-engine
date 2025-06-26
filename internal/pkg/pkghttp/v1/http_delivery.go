@@ -36,6 +36,9 @@ func (s *Server) Serve(handler EndpointHandler, options ...EndpointOption) *Endp
 func defaultServer(s *Server) {
 	s.responseEncoder = DefaultResponseEncoder
 	s.errorResponseEncoder = DefaultErrorEncoder
+	s.middlewares = []PreRequestMiddleware{
+		IPAddressExtractorMiddleware,
+	}
 }
 
 type ServerOption interface {

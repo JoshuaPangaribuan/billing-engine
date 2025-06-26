@@ -108,7 +108,6 @@ func NewBillingEngineModule(
 
 	delivery.NewBillingEngineHTTPGateway(
 		dependencies.HttpRouter,
-		dependencies.Logger,
 		billingEngineEndpoint,
 	)
 

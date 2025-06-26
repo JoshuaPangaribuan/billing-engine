@@ -5,7 +5,6 @@ import (
 
 	"github.com/JoshuaPangaribuan/billing-engine/internal/pkg/pkghttp/v1"
 	"github.com/julienschmidt/httprouter"
-	"go.uber.org/zap"
 )
 
 const (
@@ -21,7 +20,6 @@ const (
 
 func NewBillingEngineHTTPGateway(
 	httpRouter *httprouter.Router,
-	logger *zap.SugaredLogger,
 	billingEngineEndpoint *BillingEngineEndpoint,
 ) {
 	server := pkghttp.NewServer(
